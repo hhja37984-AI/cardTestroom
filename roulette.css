@@ -1,0 +1,36 @@
+
+/* Roulette */
+.roulette-wrap{padding-top:22px;padding-bottom:85px}
+.r-section{border:1px solid #466455;border-radius:17px;padding:14px;background:#182e25;margin-top:14px}
+.r-section h2{font-size:15px;margin:0 0 12px}
+.r-wheel-area{display:flex;flex-direction:column;align-items:center;padding:15px 0;background:radial-gradient(ellipse,#305744,#143327);border-radius:18px}
+#roulette-wheel-holder{width:min(84vw,330px);filter:drop-shadow(0 10px 15px #0006)}
+#roulette-wheel{width:100%;display:block;overflow:visible}
+#roulette-rotor,#roulette-ball-track{transform-box:view-box;transform-origin:160px 160px}
+.r-status{font-size:13px;color:#e0d2b0;text-align:center;margin:10px 0}
+.r-result{display:flex;align-items:center;gap:12px;margin:15px 0 5px;min-height:58px}
+.r-result-number,.r-history-chip{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#47554a;color:#fff;font-weight:800}
+.r-result-number{width:56px;height:56px;font-size:22px;flex:none;border:2px solid #c9ab77}
+.r-red{background:#a93f43!important;color:#fff!important}.r-black{background:#202724!important;color:#fff!important}.r-green{background:#287c55!important;color:#fff!important}
+.r-history{display:flex;gap:6px;flex-wrap:wrap}.r-history-chip{width:31px;height:31px;font-size:12px}
+.r-grid{display:flex;gap:4px;width:100%;margin-top:10px}.r-zero{width:31px;flex:none;background:#257a53;color:#fff;border:1px solid #d4b785;border-radius:4px;padding:0}
+.r-numbers{flex:1;min-width:0;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:2px}
+.r-number{padding:0;min-width:0;border:1px solid #ffffff65;border-radius:3px;color:#fff;height:33px;font-size:11px;font-weight:750}
+.r-numbers button:hover,.r-zero:hover{outline:2px solid #efdcad;outline-offset:-2px}
+.r-controls{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.r-controls label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:#c5d1c5;min-width:0}
+.r-controls select,.r-controls input,.r-player input{width:100%;min-width:0;background:#0e221a;color:#f3f1e4;border:1px solid #587365;border-radius:8px;padding:10px;font-size:14px}
+.r-controls .full{grid-column:1/-1}
+.r-anchor{display:flex;gap:8px;flex-wrap:wrap}
+.r-anchor label{flex:1;min-width:90px}
+.r-player{border:1px solid #405f4d;border-radius:12px;padding:12px;margin-top:9px;background:#11261e}
+.r-player-head,.r-player-controls,.r-bet{display:flex;gap:10px;align-items:center;justify-content:space-between}
+.r-player-head input{width:45%;font-weight:700}.r-player-head strong{color:#ead4a0}
+.r-player-controls{margin:10px 0;justify-content:flex-start}.r-player-controls label{display:flex;align-items:center;gap:8px;font-size:12px;color:#c8d4c8}.r-player-controls input{width:94px;padding:7px}
+.r-bet{padding:7px 0;border-top:1px solid #ffffff18;font-size:12px}.r-bet button{padding:0 7px}
+.r-bet-list{margin-top:8px}
+.r-copy{width:100%;min-height:110px;background:#0d211a;border:1px solid #486356;color:#d6e3d6;border-radius:9px;padding:12px;resize:vertical;font-size:12px;line-height:1.65}
+.r-alert{border:1px solid #99763e;background:#443821;border-radius:8px;padding:10px;color:#ffe2a9;font-size:12px;margin:12px 0}
+.r-alert[hidden],.r-controls [hidden]{display:none!important}
+.r-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.r-actions button{flex:1}
