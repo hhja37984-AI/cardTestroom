@@ -118,24 +118,36 @@ function settlement(number){
  s.last={number,summary,results};s.history.push({number,summary});if(s.history.length>50)s.history.shift();s.phase="settled";save();render();
 }
 function spin(){
- if(spinning||s.phase!=="betting")return;
+ if(spinning)return;
+ if(s.phase!=="betting"){note("먼저 '다음 판'을 눌러 새 라운드를 시작하세요.");return}
  const chosen=$("roulette-manual").value;
  const result=chosen===""?Math.floor(Math.random()*37):Number(chosen);
  if(!Number.isInteger(result)||result<0||result>36){note("0~36 중 결과를 선택하세요.");return}
  note("");spinning=true;render();
+ // Render SVG transforms directly on every animation frame. This avoids CSS
+ // transform-box / transform-origin inconsistencies in mobile SVG engines.
  const idx=ORDER.indexOf(result),step=360/37;
  const endMod=((-(idx*step)%360)+360)%360;
  const curMod=((angle%360)+360)%360;
  const offset=(endMod-curMod+360)%360;
- angle=angle+360*5+offset;
- ballAngle-=360*7;
+ const fromRotor=angle,fromBall=ballAngle;
+ const toRotor=angle+360*5+offset,toBall=ballAngle-360*7;
  const rotor=$("roulette-rotor"),ball=$("roulette-ball-track");
- rotor.style.transition="transform 4600ms cubic-bezier(.12,.65,.20,1)";
- ball.style.transition="transform 4400ms cubic-bezier(.08,.4,.16,1)";
- rotor.style.transformOrigin="160px 160px";ball.style.transformOrigin="160px 160px";
- rotor.style.transform="rotate("+angle+"deg)";
- ball.style.transform="rotate("+ballAngle+"deg)";
- timeout=setTimeout(()=>{spinning=false;settlement(result)},4700);
+ const duration=4600,startTime=performance.now();
+ const ease=t=>1-Math.pow(1-t,4);
+ const setRotations=(a,b)=>{
+  rotor.setAttribute("transform","rotate("+a+" 160 160)");
+  ball.setAttribute("transform","rotate("+b+" 160 160)");
+ };
+ // First frame starts from the prior wheel position; avoids jumps on repeat spins.
+ function frame(now){
+  const t=Math.min(1,Math.max(0,(now-startTime)/duration)),e=ease(t);
+  setRotations(fromRotor+(toRotor-fromRotor)*e,fromBall+(toBall-fromBall)*e);
+  if(t<1){requestAnimationFrame(frame);return}
+  angle=toRotor;ballAngle=toBall;spinning=false;settlement(result);
+ }
+ setRotations(fromRotor,fromBall);
+ requestAnimationFrame(frame);
 }
 function nextRound(){if(spinning)return;s.players.forEach(p=>p.bets=[]);s.phase="betting";s.last=null;$("roulette-manual").value="";note("");save();render()}
 function init(){
